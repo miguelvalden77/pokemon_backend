@@ -37,6 +37,7 @@ router.post("/signup", async (req, res, next)=>{
     catch(error){
         console.log(error)
         next(error)
+        res.json({errorMessage: error})
     }
 
 })
@@ -82,7 +83,6 @@ router.post("/login", async (req, res, next)=>{
         res.json({authToken: authToken})
     }
     catch(error){
-        console.log(error)
         next(error)
     }
 
