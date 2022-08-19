@@ -62,7 +62,7 @@ router.delete("/:id/delete", async (req, res, next)=>{
 
     }
     catch(error){
-
+        res.json({errorMessage: "Error al borrar el post"})
     }
 })
 
