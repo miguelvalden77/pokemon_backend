@@ -39,6 +39,7 @@ router.patch("/:id/edit", isAuth, async (req, res, next)=>{
     }
     catch(error){
         next(error)
+        res.json({errorMessage: "Error al obtener los post"})
     }
 
 })
