@@ -3,7 +3,9 @@ const Comment = require("../models/Comment.model")
 const User = require("../models/User.model")
 const Post = require("../models/Post.model")
 
-router.post("/create", async (req, res, next)=>{
+const isAuth = require("../middlewares/isAuth")
+
+router.post("/create", isAuth, async (req, res, next)=>{
 
     const {message, postId, userId} = req.body
 
@@ -15,7 +17,6 @@ router.post("/create", async (req, res, next)=>{
         res.json("Comentario creado")
     }
     catch(error){
-        console.log(error)
         next(error)
     }
 
@@ -33,7 +34,6 @@ router.delete("/:id/delete", async (req, res, next)=>{
         res.json("Comentario borrado")
     }
     catch(error){
-        console.log(error)
         next(error)
     }
 

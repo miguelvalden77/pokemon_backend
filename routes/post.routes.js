@@ -1,8 +1,9 @@
 const router = require("express").Router();
 const Post = require("../models/Post.model")
 const Comment = require("../models/Post.model")
+const isAuth = require("../middlewares/isAuth")
 
-router.post("/create", async (req, res, next)=>{
+router.post("/create", isAuth, async (req, res, next)=>{
     
     const {title, picture, description} = req.body
 
@@ -16,7 +17,7 @@ router.post("/create", async (req, res, next)=>{
 
 })
 
-router.get("/all", async (req, res, next)=>{
+router.get("/all", isAuth, async (req, res, next)=>{
 
     try{
         const posts = await Post.find().populate("comments")
@@ -28,7 +29,7 @@ router.get("/all", async (req, res, next)=>{
 
 })
 
-router.patch("/:id/edit", async (req, res, next)=>{
+router.patch("/:id/edit", isAuth, async (req, res, next)=>{
     const {id} = req.params
     const {title, picture, description} = req.body
 
@@ -42,7 +43,7 @@ router.patch("/:id/edit", async (req, res, next)=>{
 
 })
 
-router.delete("/:id/delete", async (req, res, next)=>{
+router.delete("/:id/delete", isAuth, async (req, res, next)=>{
 
     const {id} = req.params
 
