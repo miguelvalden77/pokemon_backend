@@ -5,10 +5,10 @@ const isAuth = require("../middlewares/isAuth")
 
 router.post("/create", isAuth, async (req, res, next)=>{
     
-    const {title, picture, description} = req.body
+    const {title, picture, description, owner} = req.body
 
     try{
-        await Post.create({title, picture, description})
+        await Post.create({title, picture, description, owner})
         res.json("Post subido")
     }
     catch(error){

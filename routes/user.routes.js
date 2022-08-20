@@ -1,10 +1,9 @@
 const router = require("express").Router();
 const User = require("../models/User.model")
 
-router.post("/:name/pokemon", async (req, res, next)=>{
+router.post("/add/pokemon", async (req, res, next)=>{
 
-    const {name} = req.params
-    const {userId} = req.body
+    const {userId, name} = req.body
 
     try{
         await User.findByIdAndUpdate(userId, {$addToSet: {pokemons: name}})
