@@ -1,14 +1,17 @@
 const router = require("express").Router();
 const Post = require("../models/Post.model")
 const Comment = require("../models/Post.model")
+const User = require("../models/User.model")
 const isAuth = require("../middlewares/isAuth")
 
-router.post("/create", isAuth, async (req, res, next)=>{
+router.post("/:id/create", isAuth, async (req, res, next)=>{
     
     const {title, picture, description, owner} = req.body
+    const {id} = req.params
 
     try{
-        await Post.create({title, picture, description, owner})
+        const post = await Post.create({title, picture, description, owner})
+        await User.findByIdAndUpdate(id, {$addToSet:{posts: post._id}})
         res.json("Post subido")
     }
     catch(error){
