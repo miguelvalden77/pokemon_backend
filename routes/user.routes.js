@@ -15,5 +15,20 @@ router.post("/add/pokemon", async (req, res, next)=>{
 
 })
 
+router.get("/:id", async (req, res, next)=>{
+    
+    const {id} = req.params
+
+    try{
+        const user = User.findById(id).populate("posts")
+        console.log(user)
+        res.json(user)
+    }
+    catch(error){
+        next(error)
+    }
+
+})
+
 
 module.exports = router

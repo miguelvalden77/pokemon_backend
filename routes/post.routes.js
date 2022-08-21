@@ -75,7 +75,7 @@ router.get("/:id", async (req, res, next)=>{
     const {id} = req.params
 
     try{
-        const onlyPost = await Post.findById(id)
+        const onlyPost = await Post.findById(id).populate("owner")
         res.json(onlyPost)
     }
     catch(error){
