@@ -21,7 +21,7 @@ router.get("/:id", async (req, res, next)=>{
 
     try{
         const user = User.findById(id).populate("posts")
-        console.log
+        // Obtener posts haciendo peticion a los posts por su id (están en el payload)
         res.json(user)
     }
     catch(error){

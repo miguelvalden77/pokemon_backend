@@ -70,6 +70,8 @@ router.post("/login", async (req, res, next)=>{
             return
         }
 
+        console.log(foundUser.posts)
+
         const payload = {
             _id: foundUser._id,
             username: foundUser.email,
