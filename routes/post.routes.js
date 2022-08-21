@@ -54,6 +54,8 @@ router.delete("/:id/delete", isAuth, async (req, res, next)=>{
     try{
 
         const post = await Post.findById(id).populate("comments")
+        //const post2 = await Post.findById(id).populate("owner")
+        await User.findByIdAndUpdate(post.owner, {$pull:{posts: id}})
         await Post.findByIdAndDelete(id)
         // Pasar id del user y borrar el post también de su array de posts
         console.log(post.comments)

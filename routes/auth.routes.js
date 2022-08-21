@@ -7,6 +7,7 @@ const isAuth = require("../middlewares/isAuth")
 router.post("/signup", async (req, res, next)=>{
 
     const {username, email, password} = req.body
+    const usernameOk = username.toLowerCase().trim()
 
     if(!username || !email || !password){
         res.status(400).json({errorMessage: "Debes rellenar todos los campos"})
@@ -21,7 +22,7 @@ router.post("/signup", async (req, res, next)=>{
 
     try{
 
-        const foundUser = await User.findOne({$or:[{username}, {email}]})
+        const foundUser = await User.findOne({$or:[{username: usernameOk}, {email}]})
 
         if(foundUser){
             res.status(400).json({errorMessage: "Credenciales ya registradas"})
@@ -31,7 +32,7 @@ router.post("/signup", async (req, res, next)=>{
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        await User.create({username, email, password: hashedPassword})
+        await User.create({username: usernameOk, email, password: hashedPassword})
         res.json("Usuario creado")
     }
     catch(error){
@@ -45,6 +46,7 @@ router.post("/signup", async (req, res, next)=>{
 router.post("/login", async (req, res, next)=>{
 
     const {username, password} = req.body
+    const usernameOk = username.toLowerCase().trim()
 
     let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,20}$/
     if(passwordRegex.test(password) === false){
@@ -58,7 +60,7 @@ router.post("/login", async (req, res, next)=>{
     }
 
     try{
-        const foundUser = await User.findOne({username})
+        const foundUser = await User.findOne({username: usernameOk})
         if(foundUser === null){
             res.status(400).json({errorMessage: "No hay ningún usuario con ese username"})
             return
@@ -70,11 +72,9 @@ router.post("/login", async (req, res, next)=>{
             return
         }
 
-        console.log(foundUser.posts)
-
         const payload = {
             _id: foundUser._id,
-            username: foundUser.email,
+            username: foundUser.username,
             role: foundUser.role,
             pokemons: foundUser.pokemons,
             comments: foundUser.comments,
