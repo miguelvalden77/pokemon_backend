@@ -21,7 +21,7 @@ router.get("/:id", async (req, res, next)=>{
 
     try{
         const user = User.findById(id).populate("posts")
-        console.log(user)
+        console.log
         res.json(user)
     }
     catch(error){
