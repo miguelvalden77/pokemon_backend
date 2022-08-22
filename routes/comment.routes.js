@@ -22,16 +22,16 @@ router.post("/create", isAuth, async (req, res, next)=>{
 
 })
 
-router.delete("/:id/delete", async (req, res, next)=>{
+router.post("/:id/delete", async (req, res, next)=>{
 
     const {id} = req.params
     const {postId, userId} = req.body
 
     try{
         await Comment.findByIdAndDelete(id)
-        await User.findByIdAndUpdate(userId, {$pull:{comments: id}})
+        const usuario = await User.findByIdAndUpdate(userId, {$pull:{comments: id}})
         await Post.findByIdAndUpdate(postId, {$pull:{comments: id}})
-        res.json("Comentario borrado")
+        res.json(usuario)
     }
     catch(error){
         next(error)

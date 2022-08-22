@@ -43,13 +43,15 @@ router.get("/:id", async (req, res, next)=>{
 
 })
 
-router.patch("/:name/pokemon", async (req, res, next)=>{
+router.post("/:name/pokemon", async (req, res, next)=>{
     const {name} = req.params
     const {id} = req.body
 
     try{
-        await User.findByIdAndUpdate(id, {$pull:{pokemons: name}})
-        res.json("Hola")
+        console.log(id)
+        const usuario = await User.findByIdAndUpdate(id, {$pull:{pokemons: name}})
+        console.log(usuario, "EJEMPLO")
+        res.json(usuario)
     }
     catch(error){
         next(error)
