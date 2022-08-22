@@ -49,6 +49,7 @@ router.patch("/:name/pokemon", async (req, res, next)=>{
 
     try{
         await User.findByIdAndUpdate(id, {$pull:{pokemons: name}})
+        res.json("Hola")
     }
     catch(error){
         next(error)
