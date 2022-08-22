@@ -12,7 +12,7 @@ router.post("/:id/create", isAuth, async (req, res, next)=>{
     try{
         const post = await Post.create({title, picture, description, owner})
         await User.findByIdAndUpdate(id, {$addToSet:{posts: post._id}})
-        res.json("Post subido")
+        res.json(post)
     }
     catch(error){
         next(error)
@@ -66,7 +66,7 @@ router.delete("/:id/delete", isAuth, async (req, res, next)=>{
         }
 
         
-        res.json("Post borrado")
+        res.json(post)
 
     }
     catch(error){
