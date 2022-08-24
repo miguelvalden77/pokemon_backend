@@ -16,4 +16,7 @@ router.use("/post", postRoutes)
 const userRoutes = require("./user.routes")
 router.use("/user", userRoutes)
 
+const uploaderRoutes = require("./uploader.routes")
+router.use("/uploader", uploaderRoutes)
+
 module.exports = router;
