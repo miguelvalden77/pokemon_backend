@@ -9,6 +9,8 @@ router.post("/:id/create", isAuth, async (req, res, next)=>{
     const {title, picture, description, owner} = req.body
     const {id} = req.params
 
+    console.log(picture)
+
     try{
         const post = await Post.create({title, picture, description, owner})
         await User.findByIdAndUpdate(id, {$addToSet:{posts: post._id}})
