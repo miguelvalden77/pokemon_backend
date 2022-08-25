@@ -36,9 +36,7 @@ router.post("/signup", async (req, res, next)=>{
         res.json("Usuario creado")
     }
     catch(error){
-        console.log(error)
         next(error)
-        res.json({errorMessage: error})
     }
 
 })
