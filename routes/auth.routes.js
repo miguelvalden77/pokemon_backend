@@ -90,7 +90,12 @@ router.post("/login", async (req, res, next)=>{
 })
 
 router.get("/verify", isAuth, async (req, res, next)=>{
-    res.json(req.payload)
+    try{
+        res.json(req.payload)
+    }
+    catch(error){
+        next(error)
+    }
 })
 
 
