@@ -24,7 +24,7 @@ module.exports = (app) => {
   app.use(
     cors({
       credentials: true,
-      origin: process.env.ORIGIN || "https://pokemonfan.netlify.app",
+      origin: process.env.ORIGIN || "https://pokemon-fan-app.onrender.com/",
     })
   );
 
